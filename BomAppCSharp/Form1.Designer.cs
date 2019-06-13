@@ -39,6 +39,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.TotalCountBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.RowCountText = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // RefLabel
@@ -55,7 +56,7 @@
             // 
             this.SortLabel.AutoSize = true;
             this.SortLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SortLabel.Location = new System.Drawing.Point(276, 24);
+            this.SortLabel.Location = new System.Drawing.Point(248, 24);
             this.SortLabel.Name = "SortLabel";
             this.SortLabel.Size = new System.Drawing.Size(68, 20);
             this.SortLabel.TabIndex = 1;
@@ -73,10 +74,10 @@
             // SortedTextBox
             // 
             this.SortedTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SortedTextBox.Location = new System.Drawing.Point(280, 47);
+            this.SortedTextBox.Location = new System.Drawing.Point(252, 47);
             this.SortedTextBox.Multiline = true;
             this.SortedTextBox.Name = "SortedTextBox";
-            this.SortedTextBox.Size = new System.Drawing.Size(208, 360);
+            this.SortedTextBox.Size = new System.Drawing.Size(236, 360);
             this.SortedTextBox.TabIndex = 3;
             // 
             // LoadButton
@@ -116,7 +117,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(362, 439);
+            this.label1.Location = new System.Drawing.Point(397, 439);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(91, 16);
             this.label1.TabIndex = 7;
@@ -124,25 +125,37 @@
             // 
             // TotalCountBox
             // 
-            this.TotalCountBox.Location = new System.Drawing.Point(459, 438);
+            this.TotalCountBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalCountBox.Location = new System.Drawing.Point(494, 438);
             this.TotalCountBox.Name = "TotalCountBox";
-            this.TotalCountBox.Size = new System.Drawing.Size(23, 20);
+            this.TotalCountBox.Size = new System.Drawing.Size(23, 26);
             this.TotalCountBox.TabIndex = 8;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(494, 31);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(497, 31);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(63, 13);
+            this.label2.Size = new System.Drawing.Size(73, 13);
             this.label2.TabIndex = 9;
             this.label2.Text = "Row Count:";
+            // 
+            // RowCountText
+            // 
+            this.RowCountText.AutoSize = true;
+            this.RowCountText.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RowCountText.Location = new System.Drawing.Point(513, 50);
+            this.RowCountText.Name = "RowCountText";
+            this.RowCountText.Size = new System.Drawing.Size(0, 20);
+            this.RowCountText.TabIndex = 10;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(616, 585);
+            this.Controls.Add(this.RowCountText);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.TotalCountBox);
             this.Controls.Add(this.label1);
@@ -173,6 +186,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox TotalCountBox;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label RowCountText;
     }
 }
 

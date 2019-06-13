@@ -16,6 +16,7 @@ namespace BomAppCSharp
         public List<String> RefStringList = new List<string>();
         public List<RefComponents> RefCompList = new List<RefComponents>();
         public List<int> IndexToDelete = new List<int>();
+        public List<String> SortedList = new List<string>();
 
         public Form1()
         {
@@ -70,6 +71,8 @@ namespace BomAppCSharp
                 RefStringList.RemoveAt(x);
             }
 
+            RefStringList = RefStringList.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
+
             //print elements to GUI
             for (int i = 0; i < RefStringList.Count; i++)
             {
@@ -82,8 +85,42 @@ namespace BomAppCSharp
 
         private void SortButton_Click(object sender, EventArgs e)
         {
+            RowCountText.Text = string.Empty;
+            SortedTextBox.Text = string.Empty;
+            TotalCountBox.Text = string.Empty;
+            SortedList.Clear();
+            RefCompList.Clear();
+
             //using the list of strings, split the refs into separate parts and place in components list
+            for (int i = 0; i < RefStringList.Count; i++)
+            {
+                RefCompList.Add(CreateComponents(RefStringList[i]));
+            }
             // sort refs by their components, first prefix then number
+            RefCompList = RefCompList.OrderBy(o => o.prefix).ThenBy(o => o.number).ToList();
+
+            foreach (RefComponents C in RefCompList)
+            {
+                SortedList.Add(Combine(C));
+            }
+
+            //print list to screen, separated by commas, 5 items per row
+            for(int j = 1; j <= SortedList.Count; j++)
+            {
+                if (j % 5 == 0)
+                {
+                    SortedTextBox.Text += SortedList[j - 1] + Environment.NewLine;
+                    RowCountText.Text += "5" + Environment.NewLine;
+                }
+                else
+                {
+                    SortedTextBox.Text += SortedList[j - 1] + ", ";   
+                }
+                
+            }
+
+            RowCountText.Text += (SortedList.Count % 5).ToString();
+            TotalCountBox.Text = (SortedList.Count).ToString();
         }
 
         private void ResetButton_Click(object sender, EventArgs e)
@@ -92,7 +129,8 @@ namespace BomAppCSharp
             RefTextBox.Text = string.Empty;
             SortedTextBox.Text = string.Empty;
             TotalCountBox.Text = string.Empty;
-            
+            RowCountText.Text = string.Empty;
+
 
         }
 
@@ -129,15 +167,40 @@ namespace BomAppCSharp
             return Temp1;
         }
 
+        public RefComponents CreateComponents(string str1)
+        {
+            RefComponents TempComp = new RefComponents();
+
+            string numstr1 = Regex.Replace(str1, "[^0-9.]", string.Empty);
+            int num = int.Parse(numstr1);
+            string letter = Regex.Replace(str1, @"[\d-]", string.Empty);
+
+            TempComp.prefix = letter;
+            TempComp.number = num;
+
+            return TempComp;
+
+        }
+
+        public string Combine (RefComponents Temp)
+        {
+            string str = Temp.prefix + Temp.number.ToString();
+            return str;
+        }
+
     }
     public class RefComponents
-
     {
 
         public RefComponents()
         {
-            string prefix;
-            int number;
+
         }
+
+
+        public string prefix;
+        public int number;
+
     }
 }
+
