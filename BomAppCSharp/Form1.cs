@@ -28,14 +28,19 @@ namespace BomAppCSharp
             IndexToDelete.Clear();
             RefStringList.Clear();
             RefTextBox.Text = String.Empty;
+            RefTextBox.ScrollBars = ScrollBars.Vertical;
 
             char[] delimiterChars = { ' ', ',' };
 
             //load in text from file into a string
-            string text = System.IO.File.ReadAllText(@"Z:\BomSortProgram\BomAppCSharp\BomFile.txt");
+            Excel excelFile = new Excel(@"Z:\Example Bom\ExampleBomExcel.xlsx", 1);
+
+            List<string> cells = excelFile.ReadExcelRange(char1,, char2,10);
 
             //split string into a list of strings
-            RefStringList = text.Split(delimiterChars).ToList();
+            // RefStringList = text.Split(delimiterChars).ToList();
+
+            RefStringList = cells;
 
             //remove extra empty slots in list
             RefStringList = RefStringList.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();

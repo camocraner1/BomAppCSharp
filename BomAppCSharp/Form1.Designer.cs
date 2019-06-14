@@ -40,6 +40,10 @@
             this.TotalCountBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.RowCountText = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.Cell1 = new System.Windows.Forms.TextBox();
+            this.Cell2 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // RefLabel
@@ -68,22 +72,22 @@
             this.RefTextBox.Location = new System.Drawing.Point(22, 47);
             this.RefTextBox.Multiline = true;
             this.RefTextBox.Name = "RefTextBox";
-            this.RefTextBox.Size = new System.Drawing.Size(194, 360);
+            this.RefTextBox.Size = new System.Drawing.Size(194, 311);
             this.RefTextBox.TabIndex = 2;
             // 
             // SortedTextBox
             // 
-            this.SortedTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SortedTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SortedTextBox.Location = new System.Drawing.Point(252, 47);
             this.SortedTextBox.Multiline = true;
             this.SortedTextBox.Name = "SortedTextBox";
-            this.SortedTextBox.Size = new System.Drawing.Size(236, 360);
+            this.SortedTextBox.Size = new System.Drawing.Size(217, 311);
             this.SortedTextBox.TabIndex = 3;
             // 
             // LoadButton
             // 
             this.LoadButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LoadButton.Location = new System.Drawing.Point(144, 439);
+            this.LoadButton.Location = new System.Drawing.Point(144, 469);
             this.LoadButton.Name = "LoadButton";
             this.LoadButton.Size = new System.Drawing.Size(93, 66);
             this.LoadButton.TabIndex = 4;
@@ -94,7 +98,7 @@
             // SortButton
             // 
             this.SortButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SortButton.Location = new System.Drawing.Point(252, 439);
+            this.SortButton.Location = new System.Drawing.Point(252, 469);
             this.SortButton.Name = "SortButton";
             this.SortButton.Size = new System.Drawing.Size(92, 66);
             this.SortButton.TabIndex = 5;
@@ -105,7 +109,7 @@
             // ResetButton
             // 
             this.ResetButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ResetButton.Location = new System.Drawing.Point(203, 511);
+            this.ResetButton.Location = new System.Drawing.Point(203, 541);
             this.ResetButton.Name = "ResetButton";
             this.ResetButton.Size = new System.Drawing.Size(83, 42);
             this.ResetButton.TabIndex = 6;
@@ -126,7 +130,7 @@
             // TotalCountBox
             // 
             this.TotalCountBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TotalCountBox.Location = new System.Drawing.Point(494, 438);
+            this.TotalCountBox.Location = new System.Drawing.Point(494, 434);
             this.TotalCountBox.Name = "TotalCountBox";
             this.TotalCountBox.Size = new System.Drawing.Size(23, 26);
             this.TotalCountBox.TabIndex = 8;
@@ -144,17 +148,55 @@
             // RowCountText
             // 
             this.RowCountText.AutoSize = true;
-            this.RowCountText.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RowCountText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RowCountText.Location = new System.Drawing.Point(513, 50);
             this.RowCountText.Name = "RowCountText";
-            this.RowCountText.Size = new System.Drawing.Size(0, 20);
+            this.RowCountText.Size = new System.Drawing.Size(0, 16);
             this.RowCountText.TabIndex = 10;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(12, 438);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(148, 16);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Enter cell range to load:";
+            // 
+            // Cell1
+            // 
+            this.Cell1.Location = new System.Drawing.Point(160, 437);
+            this.Cell1.Name = "Cell1";
+            this.Cell1.Size = new System.Drawing.Size(28, 20);
+            this.Cell1.TabIndex = 12;
+            // 
+            // Cell2
+            // 
+            this.Cell2.Location = new System.Drawing.Point(214, 437);
+            this.Cell2.Name = "Cell2";
+            this.Cell2.Size = new System.Drawing.Size(28, 20);
+            this.Cell2.TabIndex = 13;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(194, 437);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(14, 20);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "-";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(616, 585);
+            this.ClientSize = new System.Drawing.Size(599, 591);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.Cell2);
+            this.Controls.Add(this.Cell1);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.RowCountText);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.TotalCountBox);
@@ -187,6 +229,10 @@
         private System.Windows.Forms.TextBox TotalCountBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label RowCountText;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox Cell1;
+        private System.Windows.Forms.TextBox Cell2;
+        private System.Windows.Forms.Label label4;
     }
 }
 
