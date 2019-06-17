@@ -17,6 +17,7 @@ namespace BomAppCSharp
         public List<RefComponents> RefCompList = new List<RefComponents>();
         public List<int> IndexToDelete = new List<int>();
         public List<String> SortedList = new List<string>();
+       
 
         public Form1()
         {
@@ -25,25 +26,48 @@ namespace BomAppCSharp
 
         private void LoadButton_Click(object sender, EventArgs e)
         {
+            
             IndexToDelete.Clear();
             RefStringList.Clear();
             RefTextBox.Text = String.Empty;
             RefTextBox.ScrollBars = ScrollBars.Vertical;
+            SortedTextBox.ScrollBars = ScrollBars.Vertical;
 
             char[] delimiterChars = { ' ', ',' };
 
-            //load in text from file into a string
-            Excel excelFile = new Excel(@"Z:\Example Bom\ExampleBomExcel.xlsx", 1);
+            //taking input from user and converting to variable
+            if (Cell1.Text != String.Empty && Cell2.Text != String.Empty)
+            {
+                int sheetNum = new int();
+                String firstCellStr = Cell1.Text.ToString();
+                String secondCellStr = Cell2.Text.ToString();
 
-            List<string> cells = excelFile.ReadExcelRange(char1,, char2,10);
+                if (IsAllLettersOrDigits(firstCellStr) && IsAllLettersOrDigits(secondCellStr))
+                {
+                    //splitting variables into separate parts 
+                    RefComponents cell1Comps = CreateComponents(firstCellStr);
+                    RefComponents cell2Comps = CreateComponents(secondCellStr);
 
-            //split string into a list of strings
-            // RefStringList = text.Split(delimiterChars).ToList();
+                    sheetNum = Convert.ToInt32(numericUpDown1.Value);
+                    //load in text from file into a string
+                    Excel excelFile = new Excel(ofd.FileName, sheetNum);
 
-            RefStringList = cells;
+                    //reading the excel range into a list of strings
+                    RefStringList = excelFile.ReadExcelRange(cell1Comps.prefix[0], cell1Comps.number, cell2Comps.prefix[0], cell2Comps.number);
 
-            //remove extra empty slots in list
-            RefStringList = RefStringList.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
+                    //remove extra empty slots in list
+                    RefStringList = RefStringList.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
+                }
+                else
+                {
+                    RefTextBox.Text = "Invalid cell(s)";
+                }
+
+            }
+            else
+            {
+                RefTextBox.Text = "The range entered was invalid";
+            }
 
             //for loop to go through all elements in list
             for (int i = 0; i < RefStringList.Count; i++)
@@ -135,8 +159,24 @@ namespace BomAppCSharp
             SortedTextBox.Text = string.Empty;
             TotalCountBox.Text = string.Empty;
             RowCountText.Text = string.Empty;
+            Cell1.Text = string.Empty;
+            Cell2.Text = string.Empty;
 
 
+        }
+
+        private void RefTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BrowseButton_Click(object sender, EventArgs e)
+        {
+            ofd.Filter = "Excel|*.xlsx";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                FileTextBox.Text = ofd.FileName;
+            }
         }
 
         public List<string> Split(string str1)
@@ -192,7 +232,15 @@ namespace BomAppCSharp
             string str = Temp.prefix + Temp.number.ToString();
             return str;
         }
+        public bool IsAllLettersOrDigits(string Str)
+        {
+            return Regex.IsMatch(Str, @"\S*(\S*([a-zA-Z]\S*[0-9])|([0-9]\S*[a-zA-Z]))\S*");
+        }
 
+        private void OpenFileDialog1_FileOk_1(object sender, CancelEventArgs e)
+        {
+
+        }
     }
     public class RefComponents
     {
