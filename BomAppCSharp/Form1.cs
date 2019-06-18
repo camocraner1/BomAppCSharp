@@ -114,7 +114,10 @@ namespace BomAppCSharp
 
         private void SortButton_Click(object sender, EventArgs e)
         {
-            RowCountText.Text = string.Empty;
+            label8.Text = string.Empty;
+            label9.Text = string.Empty;
+            RowOf5Count.Text = string.Empty;
+            LastRowCount.Text = string.Empty;
             SortedTextBox.Text = string.Empty;
             TotalCountBox.Text = string.Empty;
             SortedList.Clear();
@@ -134,12 +137,14 @@ namespace BomAppCSharp
             }
 
             //print list to screen, separated by commas, 5 items per row
-            for(int j = 1; j <= SortedList.Count; j++)
+            int rowCount = 0;
+
+            for (int j = 1; j <= SortedList.Count; j++)
             {
                 if (j % 5 == 0)
                 {
                     SortedTextBox.Text += SortedList[j - 1] + Environment.NewLine;
-                    RowCountText.Text += "5" + Environment.NewLine;
+                    rowCount++;
                 }
                 else
                 {
@@ -148,7 +153,10 @@ namespace BomAppCSharp
                 
             }
 
-            RowCountText.Text += (SortedList.Count % 5).ToString();
+            label8.Text = "1    Row of ";
+            label9.Text = "Rows of 5";
+            RowOf5Count.Text = rowCount.ToString();
+            LastRowCount.Text += (SortedList.Count % 5).ToString();
             TotalCountBox.Text = (SortedList.Count).ToString();
         }
 
@@ -158,9 +166,13 @@ namespace BomAppCSharp
             RefTextBox.Text = string.Empty;
             SortedTextBox.Text = string.Empty;
             TotalCountBox.Text = string.Empty;
-            RowCountText.Text = string.Empty;
+            RowOf5Count.Text = string.Empty;
             Cell1.Text = string.Empty;
             Cell2.Text = string.Empty;
+            label8.Text = string.Empty;
+            label9.Text = string.Empty;
+            RowOf5Count.Text = string.Empty;
+            LastRowCount.Text = string.Empty;
 
 
         }
@@ -238,6 +250,11 @@ namespace BomAppCSharp
         }
 
         private void OpenFileDialog1_FileOk_1(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
         {
 
         }

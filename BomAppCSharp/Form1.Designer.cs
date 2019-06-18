@@ -39,7 +39,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.TotalCountBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.RowCountText = new System.Windows.Forms.Label();
+            this.RowOf5Count = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.Cell1 = new System.Windows.Forms.TextBox();
             this.Cell2 = new System.Windows.Forms.TextBox();
@@ -51,6 +51,9 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.LastRowCount = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -144,27 +147,28 @@
             this.TotalCountBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TotalCountBox.Location = new System.Drawing.Point(494, 434);
             this.TotalCountBox.Name = "TotalCountBox";
-            this.TotalCountBox.Size = new System.Drawing.Size(23, 26);
+            this.TotalCountBox.Size = new System.Drawing.Size(42, 26);
             this.TotalCountBox.TabIndex = 8;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(497, 15);
+            this.label2.Location = new System.Drawing.Point(478, 15);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(73, 13);
             this.label2.TabIndex = 9;
             this.label2.Text = "Row Count:";
             // 
-            // RowCountText
+            // RowOf5Count
             // 
-            this.RowCountText.AutoSize = true;
-            this.RowCountText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RowCountText.Location = new System.Drawing.Point(513, 34);
-            this.RowCountText.Name = "RowCountText";
-            this.RowCountText.Size = new System.Drawing.Size(0, 16);
-            this.RowCountText.TabIndex = 10;
+            this.RowOf5Count.AutoEllipsis = true;
+            this.RowOf5Count.AutoSize = true;
+            this.RowOf5Count.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RowOf5Count.Location = new System.Drawing.Point(500, 52);
+            this.RowOf5Count.Name = "RowOf5Count";
+            this.RowOf5Count.Size = new System.Drawing.Size(0, 15);
+            this.RowOf5Count.TabIndex = 10;
             // 
             // label3
             // 
@@ -277,11 +281,41 @@
             0,
             0});
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(500, 85);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(0, 13);
+            this.label8.TabIndex = 21;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(523, 54);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(0, 13);
+            this.label9.TabIndex = 22;
+            // 
+            // LastRowCount
+            // 
+            this.LastRowCount.AutoSize = true;
+            this.LastRowCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LastRowCount.Location = new System.Drawing.Point(574, 85);
+            this.LastRowCount.Name = "LastRowCount";
+            this.LastRowCount.Size = new System.Drawing.Size(0, 13);
+            this.LastRowCount.TabIndex = 23;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(599, 591);
+            this.ClientSize = new System.Drawing.Size(610, 591);
+            this.Controls.Add(this.LastRowCount);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -292,7 +326,7 @@
             this.Controls.Add(this.Cell2);
             this.Controls.Add(this.Cell1);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.RowCountText);
+            this.Controls.Add(this.RowOf5Count);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.TotalCountBox);
             this.Controls.Add(this.label1);
@@ -306,6 +340,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Bom Sort";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -324,7 +359,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox TotalCountBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label RowCountText;
+        private System.Windows.Forms.Label RowOf5Count;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox Cell1;
         private System.Windows.Forms.TextBox Cell2;
@@ -336,6 +371,9 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label LastRowCount;
     }
 }
 
