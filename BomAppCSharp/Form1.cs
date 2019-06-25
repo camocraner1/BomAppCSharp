@@ -2,22 +2,33 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
+using System.Collections;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 namespace BomAppCSharp
 {
+
     public partial class Form1 : Form
     {
+        Hashtable myHashtable;
+
         public List<String> RefStringList = new List<string>();
         public List<RefComponents> RefCompList = new List<RefComponents>();
         public List<int> IndexToDelete = new List<int>();
         public List<String> SortedList = new List<string>();
-       
+
+        //open excel files
+        Excel UnsortedExcelFile = null;
+        Excel SortedExcelFile = null;
+
+        int UnsortedsheetNum;
+        int SortedsheetNum;
 
         public Form1()
         {
@@ -31,70 +42,21 @@ namespace BomAppCSharp
             SortedTextBox.Text = String.Empty;
             SortedTextBox.ScrollBars = ScrollBars.Vertical;
 
-            //creating strings for the users column inputs
-            string QuantityCol = QuantityTextBox.Text.ToString();
-            string PartDescriptionCol = PartDescTextBox.Text.ToString();
-            string ManufacturerCol = ManufacturerTextBox.Text.ToString();
-            string ManufacturerPNCol = ManufacturerPNTextBox.Text.ToString();
-
-            int UnsortedsheetNum = Convert.ToInt32(numericUpDown1.Value);
-            int SortedsheetNum = Convert.ToInt32(numericUpDown2.Value);
+            UnsortedsheetNum = Convert.ToInt32(numericUpDown1.Value);
+            SortedsheetNum = Convert.ToInt32(numericUpDown2.Value);
             
             //open excel files
-            Excel UnsortedExcelFile = new Excel(ofd.FileName, UnsortedsheetNum);
-            Excel SortedExcelFile = new Excel(ofd2.FileName, SortedsheetNum);
+            UnsortedExcelFile = new Excel(ofd.FileName, UnsortedsheetNum);
+            SortedExcelFile = new Excel(ofd2.FileName, SortedsheetNum);
 
-            string QuantityCell, PartDescriptionCell, ManufacturerCell, ManufacturerPNCell;
             //taking input from user and converting to variable
             if (Cell1.Text != String.Empty && Cell2.Text != String.Empty)
             {
-                String firstCellStr = Cell1.Text.ToString();
-                String secondCellStr = Cell2.Text.ToString();
-
-                if (IsAllLettersOrDigits(firstCellStr) && IsAllLettersOrDigits(secondCellStr) && FileInTextBox.Text != String.Empty)
+                if (IsAllLettersOrDigits(Cell1.Text) && IsAllLettersOrDigits(Cell2.Text) && FileInTextBox.Text != String.Empty)
                 {
-                    //splitting variables into separate parts 
-                    RefComponents cell1Comps = CreateComponents(firstCellStr);
-                    RefComponents cell2Comps = CreateComponents(secondCellStr);
-
-                    //reading the excel range into a list of strings
-                    RefStringList = UnsortedExcelFile.ReadExcelRange(cell1Comps.prefix[0], cell1Comps.number, cell2Comps.prefix[0], cell2Comps.number);
-
-                    //remove extra empty slots in list
-                    RefStringList = RefStringList.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
-
-                    //find the cells that need to be copied and copy contents into strings
-                    if (Regex.IsMatch(QuantityCol, @"^[A-Z]+$"))
-                    {
-                        QuantityCell = UnsortedExcelFile.ReadCell(QuantityCol[0], cell1Comps.number);
-                    }
-                    else
-                        QuantityCell = string.Empty;
-
-                    if (Regex.IsMatch(PartDescriptionCol, @"^[A-Z]+$"))
-                    {
-                        PartDescriptionCell = UnsortedExcelFile.ReadCell(PartDescriptionCol[0], cell1Comps.number);
-                    }
-                    else
-                        PartDescriptionCell = string.Empty;
-
-                    if (Regex.IsMatch(ManufacturerCol, @"^[A-Z]+$"))
-                    {
-                        ManufacturerCell = UnsortedExcelFile.ReadCell(ManufacturerCol[0], cell1Comps.number);
-                    }
-                    else
-                        ManufacturerCell = string.Empty;
-
-                    if (Regex.IsMatch(ManufacturerPNCol, @"^[A-Z]+$"))
-                    {
-                        ManufacturerPNCell = UnsortedExcelFile.ReadCell(ManufacturerPNCol[0], cell1Comps.number);
-                    }
-                    else
-                        ManufacturerPNCell = string.Empty;
-
-                    //print the copied contents into the new excel file in the correct columns
-                    SortedExcelFile.PasteCells(QuantityCell, PartDescriptionCell, ManufacturerCell, ManufacturerPNCell);
-
+                    CheckExcellProcesses();
+                    ExportDataToExcel();
+                    KillExcel();
                 }
                 else
                 {
@@ -108,8 +70,7 @@ namespace BomAppCSharp
             }
             //save and close excel files
             UnsortedExcelFile.Close();
-            SortedExcelFile.Save();
-            SortedExcelFile.Close();
+            UnsortedExcelFile.Quit();
 
         }
 
@@ -194,11 +155,17 @@ namespace BomAppCSharp
             int SortedsheetNum = Convert.ToInt32(numericUpDown2.Value);
             Excel SortedExcelFile = new Excel(ofd2.FileName, SortedsheetNum);
 
+            CheckExcellProcesses();
+
             //paste the references in the file
             SortedExcelFile.PasteSortedRefs(SortedTextBox.Text.ToString());
-           
-            //save and close excel files
+
             SortedExcelFile.Save();
+            SortedExcelFile.Close();
+
+            KillExcel();
+
+            //save and close excel files
 
             label8.Text = "1    Row of ";
             label9.Text = "Rows of 5";
@@ -301,6 +268,93 @@ namespace BomAppCSharp
             return (letter - 64);
         }
 
+        private void ExportDataToExcel()
+        {
+
+            String firstCellStr = Cell1.Text.ToString();
+            String secondCellStr = Cell2.Text.ToString();
+
+            // your export process is here...
+            //creating strings for the users column inputs
+            string QuantityCol = QuantityTextBox.Text.ToString();
+            string PartDescriptionCol = PartDescTextBox.Text.ToString();
+            string ManufacturerCol = ManufacturerTextBox.Text.ToString();
+            string ManufacturerPNCol = ManufacturerPNTextBox.Text.ToString();
+
+            //splitting variables into separate parts 
+            RefComponents cell1Comps = CreateComponents(firstCellStr);
+            RefComponents cell2Comps = CreateComponents(secondCellStr);
+
+            //reading the excel range into a list of strings
+            RefStringList = UnsortedExcelFile.ReadExcelRange(cell1Comps.prefix[0], cell1Comps.number, cell2Comps.prefix[0], cell2Comps.number);
+
+            //remove extra empty slots in list
+            RefStringList = RefStringList.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
+
+
+            string QuantityCell, PartDescriptionCell, ManufacturerCell, ManufacturerPNCell;
+
+            //find the cells that need to be copied and copy contents into strings
+            if (Regex.IsMatch(QuantityCol, @"^[A-Z]+$"))
+            {
+                QuantityCell = UnsortedExcelFile.ReadCell(QuantityCol[0], cell1Comps.number);
+            }
+            else
+                QuantityCell = string.Empty;
+
+            if (Regex.IsMatch(PartDescriptionCol, @"^[A-Z]+$"))
+            {
+                PartDescriptionCell = UnsortedExcelFile.ReadCell(PartDescriptionCol[0], cell1Comps.number);
+            }
+            else
+                PartDescriptionCell = string.Empty;
+
+            if (Regex.IsMatch(ManufacturerCol, @"^[A-Z]+$"))
+            {
+                ManufacturerCell = UnsortedExcelFile.ReadCell(ManufacturerCol[0], cell1Comps.number);
+            }
+            else
+                ManufacturerCell = string.Empty;
+
+            if (Regex.IsMatch(ManufacturerPNCol, @"^[A-Z]+$"))
+            {
+                ManufacturerPNCell = UnsortedExcelFile.ReadCell(ManufacturerPNCol[0], cell1Comps.number);
+            }
+            else
+                ManufacturerPNCell = string.Empty;
+
+            //print the copied contents into the new excel file in the correct columns
+            SortedExcelFile.PasteCells(QuantityCell, PartDescriptionCell, ManufacturerCell, ManufacturerPNCell);
+
+        }
+
+        private void CheckExcellProcesses()
+        {
+            Process[] AllProcesses = Process.GetProcessesByName("excel");
+            myHashtable = new Hashtable();
+            int iCount = 0;
+
+            foreach (Process ExcelProcess in AllProcesses)
+            {
+                myHashtable.Add(ExcelProcess.Id, iCount);
+                iCount = iCount + 1;
+            }
+        }
+
+        private void KillExcel()
+        {
+            Process[] AllProcesses = Process.GetProcessesByName("excel");
+
+            // check to kill the right process
+            foreach (Process ExcelProcess in AllProcesses)
+            {
+                if (myHashtable.ContainsKey(ExcelProcess.Id) == false)
+                    ExcelProcess.Kill();
+            }
+
+            AllProcesses = null;
+        }
+
         private void OpenFileDialog1_FileOk_1(object sender, CancelEventArgs e)
         {
 
@@ -334,6 +388,17 @@ namespace BomAppCSharp
         private void FileInTextBox_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            if (File.Exists(ofd2.FileName))
+            {
+                //SortedExcelFile.SaveAs(@"Z:\Example Bom\TempFile.xlsx");
+                SortedExcelFile.Quit();
+                File.Delete(ofd2.FileName);
+            }
+           // SortedExcelFile.("Z:\Example Bom\TempFile.xlsx");
         }
     }
     public class RefComponents

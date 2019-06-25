@@ -11,6 +11,8 @@ namespace BomAppCSharp
 {
     class Excel
     {
+       public int rowCount, refRowCount;
+
         string path = string.Empty;
         _Application excel = new _Excel.Application();
         Workbook wb;
@@ -40,19 +42,29 @@ namespace BomAppCSharp
 
         public string ReadCell(char x, int y)
         {
-            return (ws.Cells[x - 64, y]).Value2.ToString();
+            return (ws.Cells[y, x - 64]).Value2.ToString();
         }
 
         public void Save()
         {
-            wb.Save();
+            //wb.Close(SaveChanges:= true, Filename:= CurDir & FileToSave);
         }
+
+        public void SaveAs(string path)
+        {
+            wb.SaveAs(path);
+        }
+        
         public void Close()
         {
             wb.Close(true);
         }
 
-        int rowCount = 0;
+        public void Quit()
+        {
+            excel.Quit();
+        }
+
         public void PasteCells(string quantity, string descrip, string manu, string manuPN)
         {
             ws.Cells[2 + rowCount, 2] = quantity;
@@ -62,7 +74,6 @@ namespace BomAppCSharp
             rowCount++;
         }
 
-        int refRowCount = 0;
         public void PasteSortedRefs(string sortedRefs)
         {
             ws.Cells[2 + refRowCount, 3] = sortedRefs;

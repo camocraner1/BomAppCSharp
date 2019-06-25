@@ -68,6 +68,7 @@
             this.ManufacturerPNTextBox = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
+            this.SaveButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
@@ -119,9 +120,9 @@
             // 
             this.ResetButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.ResetButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ResetButton.Location = new System.Drawing.Point(347, 465);
+            this.ResetButton.Location = new System.Drawing.Point(293, 464);
             this.ResetButton.Name = "ResetButton";
-            this.ResetButton.Size = new System.Drawing.Size(83, 42);
+            this.ResetButton.Size = new System.Drawing.Size(92, 42);
             this.ResetButton.TabIndex = 6;
             this.ResetButton.Text = "Reset";
             this.ResetButton.UseVisualStyleBackColor = true;
@@ -467,11 +468,23 @@
             this.label17.TabIndex = 38;
             this.label17.Text = "(Enter Only Capital Letters)";
             // 
+            // SaveButton
+            // 
+            this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.SaveButton.Location = new System.Drawing.Point(395, 464);
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.Size = new System.Drawing.Size(93, 42);
+            this.SaveButton.TabIndex = 39;
+            this.SaveButton.Text = "Save Worksheet";
+            this.SaveButton.UseVisualStyleBackColor = true;
+            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(687, 526);
+            this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.ManufacturerPNTextBox);
             this.Controls.Add(this.label16);
@@ -560,6 +573,7 @@
         private System.Windows.Forms.TextBox ManufacturerPNTextBox;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Button SaveButton;
     }
 }
 
