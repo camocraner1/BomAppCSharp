@@ -11,6 +11,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
+
 namespace BomAppCSharp
 {
 
@@ -56,7 +58,6 @@ namespace BomAppCSharp
                 {
                     CheckExcellProcesses();
                     ExportDataToExcel();
-                    KillExcel();
                 }
                 else
                 {
@@ -68,9 +69,6 @@ namespace BomAppCSharp
             {
                 SortedTextBox.Text = "The range entered was invalid";
             }
-            //save and close excel files
-            UnsortedExcelFile.Close();
-            UnsortedExcelFile.Quit();
 
         }
 
@@ -160,10 +158,6 @@ namespace BomAppCSharp
             //paste the references in the file
             SortedExcelFile.PasteSortedRefs(SortedTextBox.Text.ToString());
 
-            SortedExcelFile.Save();
-            SortedExcelFile.Close();
-
-            KillExcel();
 
             //save and close excel files
 
@@ -343,16 +337,32 @@ namespace BomAppCSharp
 
         private void KillExcel()
         {
-            Process[] AllProcesses = Process.GetProcessesByName("excel");
+            Process[] AllProcesses = Process.GetProcessesByName("EXCEL");
 
             // check to kill the right process
-            foreach (Process ExcelProcess in AllProcesses)
-            {
-                if (myHashtable.ContainsKey(ExcelProcess.Id) == false)
-                    ExcelProcess.Kill();
-            }
+            foreach (Process clsProcess in Process.GetProcesses())
+                if (clsProcess.ProcessName.Equals("EXCEL"))  //Process Excel?
+                    clsProcess.Kill();
 
             AllProcesses = null;
+        }
+
+        private void SaveSortedFile()
+        {
+            SortedExcelFile.SaveAs(@"Z:\Example Bom\TempExcel.xlsx");
+            SortedExcelFile.Close();
+            SortedExcelFile.Quit();
+            UnsortedExcelFile.Close();
+            UnsortedExcelFile.Quit();
+
+            KillExcel();
+
+            Thread.Sleep(6000);
+            if (File.Exists(ofd2.FileName))
+            {
+                File.Delete(ofd2.FileName);
+                File.Move(@"Z:\Example Bom\TempExcel.xlsx", ofd2.FileName);
+            }
         }
 
         private void OpenFileDialog1_FileOk_1(object sender, CancelEventArgs e)
@@ -392,13 +402,7 @@ namespace BomAppCSharp
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            if (File.Exists(ofd2.FileName))
-            {
-                //SortedExcelFile.SaveAs(@"Z:\Example Bom\TempFile.xlsx");
-                SortedExcelFile.Quit();
-                File.Delete(ofd2.FileName);
-            }
-           // SortedExcelFile.("Z:\Example Bom\TempFile.xlsx");
+            SaveSortedFile();
         }
     }
     public class RefComponents

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DocumentFormat.OpenXml.Office2013.PowerPoint.Roaming;
 using Microsoft.Office.Interop.Excel;
+using ServiceStack.Configuration;
 using _Excel = Microsoft.Office.Interop.Excel;
 
 
@@ -11,7 +13,8 @@ namespace BomAppCSharp
 {
     class Excel
     {
-       public int rowCount, refRowCount;
+            public int rowCount = 0;
+       public int refRowCount = 0;
 
         string path = string.Empty;
         _Application excel = new _Excel.Application();
@@ -45,14 +48,15 @@ namespace BomAppCSharp
             return (ws.Cells[y, x - 64]).Value2.ToString();
         }
 
-        public void Save()
+
+        public void SaveCopyAs(string filename)
         {
-            //wb.Close(SaveChanges:= true, Filename:= CurDir & FileToSave);
+            wb.SaveCopyAs(filename);
         }
 
         public void SaveAs(string path)
         {
-            wb.SaveAs(path);
+            wb.SaveAs(path, XlFileFormat.xlWorkbookDefault, Type.Missing, Type.Missing, true, false, XlSaveAsAccessMode.xlNoChange, XlSaveConflictResolution.xlLocalSessionChanges, Type.Missing, Type.Missing);
         }
         
         public void Close()
