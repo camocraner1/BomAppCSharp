@@ -69,6 +69,7 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.SaveButton = new System.Windows.Forms.Button();
+            this.SelectExcelButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
@@ -170,7 +171,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(4, 373);
+            this.label3.Location = new System.Drawing.Point(3, 427);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(184, 16);
             this.label3.TabIndex = 11;
@@ -178,14 +179,14 @@
             // 
             // Cell1
             // 
-            this.Cell1.Location = new System.Drawing.Point(188, 370);
+            this.Cell1.Location = new System.Drawing.Point(187, 424);
             this.Cell1.Name = "Cell1";
             this.Cell1.Size = new System.Drawing.Size(28, 20);
             this.Cell1.TabIndex = 12;
             // 
             // Cell2
             // 
-            this.Cell2.Location = new System.Drawing.Point(242, 370);
+            this.Cell2.Location = new System.Drawing.Point(241, 424);
             this.Cell2.Name = "Cell2";
             this.Cell2.Size = new System.Drawing.Size(28, 20);
             this.Cell2.TabIndex = 13;
@@ -194,7 +195,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(222, 370);
+            this.label4.Location = new System.Drawing.Point(221, 424);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(14, 20);
             this.label4.TabIndex = 14;
@@ -204,7 +205,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(12, 393);
+            this.label5.Location = new System.Drawing.Point(11, 447);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(266, 12);
             this.label5.TabIndex = 15;
@@ -479,11 +480,24 @@
             this.SaveButton.UseVisualStyleBackColor = true;
             this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
+            // SelectExcelButton
+            // 
+            this.SelectExcelButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.SelectExcelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SelectExcelButton.Location = new System.Drawing.Point(53, 354);
+            this.SelectExcelButton.Name = "SelectExcelButton";
+            this.SelectExcelButton.Size = new System.Drawing.Size(134, 38);
+            this.SelectExcelButton.TabIndex = 40;
+            this.SelectExcelButton.Text = "open selected excel sheets";
+            this.SelectExcelButton.UseVisualStyleBackColor = true;
+            this.SelectExcelButton.Click += new System.EventHandler(this.SelectExcelButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(687, 526);
+            this.Controls.Add(this.SelectExcelButton);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.ManufacturerPNTextBox);
@@ -574,6 +588,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Button SaveButton;
+        private System.Windows.Forms.Button SelectExcelButton;
     }
 }
 

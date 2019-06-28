@@ -13,8 +13,6 @@ namespace BomAppCSharp
 {
     class Excel
     {
-            public int rowCount = 0;
-       public int refRowCount = 0;
 
         string path = string.Empty;
         _Application excel = new _Excel.Application();
@@ -56,7 +54,7 @@ namespace BomAppCSharp
 
         public void SaveAs(string path)
         {
-            wb.SaveAs(path, XlFileFormat.xlWorkbookDefault, Type.Missing, Type.Missing, true, false, XlSaveAsAccessMode.xlNoChange, XlSaveConflictResolution.xlLocalSessionChanges, Type.Missing, Type.Missing);
+            wb.SaveAs(path, XlFileFormat.xlWorkbookDefault, Type.Missing, Type.Missing, false, false, XlSaveAsAccessMode.xlNoChange, XlSaveConflictResolution.xlLocalSessionChanges, Type.Missing, Type.Missing);
         }
         
         public void Close()
@@ -69,19 +67,18 @@ namespace BomAppCSharp
             excel.Quit();
         }
 
-        public void PasteCells(string quantity, string descrip, string manu, string manuPN)
+        public void PasteCells(string quantity, string descrip, string manu, string manuPN, int rowCount)
         {
+            System.Threading.Thread.Sleep(2000);
             ws.Cells[2 + rowCount, 2] = quantity;
             ws.Cells[2 + rowCount, 5] = descrip;
             ws.Cells[2 + rowCount, 6] = manu;
             ws.Cells[2 + rowCount, 7] = manuPN;
-            rowCount++;
         }
 
-        public void PasteSortedRefs(string sortedRefs)
+        public void PasteSortedRefs(string sortedRefs, int refRowCount)
         {
             ws.Cells[2 + refRowCount, 3] = sortedRefs;
-            refRowCount++;
         }
     }
    

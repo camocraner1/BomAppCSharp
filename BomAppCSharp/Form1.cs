@@ -18,8 +18,6 @@ namespace BomAppCSharp
 
     public partial class Form1 : Form
     {
-        Hashtable myHashtable;
-
         public List<String> RefStringList = new List<string>();
         public List<RefComponents> RefCompList = new List<RefComponents>();
         public List<int> IndexToDelete = new List<int>();
@@ -31,32 +29,26 @@ namespace BomAppCSharp
 
         int UnsortedsheetNum;
         int SortedsheetNum;
+        public int rowCount = 0;
+        public int refRowCount = 0;
 
         public Form1()
         {
             InitializeComponent();
         }
 
-        private void LoadButton_Click(object sender, EventArgs e)
+        public void LoadButton_Click(object sender, EventArgs e)
         {
             IndexToDelete.Clear();
             RefStringList.Clear();
             SortedTextBox.Text = String.Empty;
             SortedTextBox.ScrollBars = ScrollBars.Vertical;
 
-            UnsortedsheetNum = Convert.ToInt32(numericUpDown1.Value);
-            SortedsheetNum = Convert.ToInt32(numericUpDown2.Value);
-            
-            //open excel files
-            UnsortedExcelFile = new Excel(ofd.FileName, UnsortedsheetNum);
-            SortedExcelFile = new Excel(ofd2.FileName, SortedsheetNum);
-
             //taking input from user and converting to variable
             if (Cell1.Text != String.Empty && Cell2.Text != String.Empty)
             {
                 if (IsAllLettersOrDigits(Cell1.Text) && IsAllLettersOrDigits(Cell2.Text) && FileInTextBox.Text != String.Empty)
                 {
-                    CheckExcellProcesses();
                     ExportDataToExcel();
                 }
                 else
@@ -149,14 +141,9 @@ namespace BomAppCSharp
             //delete extra comma at the end
             SortedTextBox.Text = SortedTextBox.Text.TrimEnd(',');
 
-            //open the new excel file
-            int SortedsheetNum = Convert.ToInt32(numericUpDown2.Value);
-            Excel SortedExcelFile = new Excel(ofd2.FileName, SortedsheetNum);
-
-            CheckExcellProcesses();
-
             //paste the references in the file
-            SortedExcelFile.PasteSortedRefs(SortedTextBox.Text.ToString());
+            SortedExcelFile.PasteSortedRefs(SortedTextBox.Text.ToString(), refRowCount);
+            refRowCount++;
 
 
             //save and close excel files
@@ -318,21 +305,9 @@ namespace BomAppCSharp
                 ManufacturerPNCell = string.Empty;
 
             //print the copied contents into the new excel file in the correct columns
-            SortedExcelFile.PasteCells(QuantityCell, PartDescriptionCell, ManufacturerCell, ManufacturerPNCell);
+            SortedExcelFile.PasteCells(QuantityCell, PartDescriptionCell, ManufacturerCell, ManufacturerPNCell, rowCount);
+            rowCount++;
 
-        }
-
-        private void CheckExcellProcesses()
-        {
-            Process[] AllProcesses = Process.GetProcessesByName("excel");
-            myHashtable = new Hashtable();
-            int iCount = 0;
-
-            foreach (Process ExcelProcess in AllProcesses)
-            {
-                myHashtable.Add(ExcelProcess.Id, iCount);
-                iCount = iCount + 1;
-            }
         }
 
         private void KillExcel()
@@ -357,7 +332,7 @@ namespace BomAppCSharp
 
             KillExcel();
 
-            Thread.Sleep(6000);
+            Thread.Sleep(3000);
             if (File.Exists(ofd2.FileName))
             {
                 File.Delete(ofd2.FileName);
@@ -404,6 +379,16 @@ namespace BomAppCSharp
         {
             SaveSortedFile();
         }
+
+        private void SelectExcelButton_Click(object sender, EventArgs e)
+        {
+            UnsortedsheetNum = Convert.ToInt32(numericUpDown1.Value);
+            SortedsheetNum = Convert.ToInt32(numericUpDown2.Value);
+
+            //open excel files
+            UnsortedExcelFile = new Excel(ofd.FileName, UnsortedsheetNum);
+            SortedExcelFile = new Excel(ofd2.FileName, SortedsheetNum);
+        }
     }
     public class RefComponents
     {
@@ -412,8 +397,6 @@ namespace BomAppCSharp
         {
 
         }
-
-
         public string prefix;
         public int number;
 
