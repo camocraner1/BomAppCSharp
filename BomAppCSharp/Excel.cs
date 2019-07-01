@@ -46,12 +46,6 @@ namespace BomAppCSharp
             return (ws.Cells[y, x - 64]).Value2.ToString();
         }
 
-
-        public void SaveCopyAs(string filename)
-        {
-            wb.SaveCopyAs(filename);
-        }
-
         public void SaveAs(string path)
         {
             wb.SaveAs(path, XlFileFormat.xlWorkbookDefault, Type.Missing, Type.Missing, false, false, XlSaveAsAccessMode.xlNoChange, XlSaveConflictResolution.xlLocalSessionChanges, Type.Missing, Type.Missing);
@@ -67,18 +61,18 @@ namespace BomAppCSharp
             excel.Quit();
         }
 
-        public void PasteCells(string quantity, string descrip, string manu, string manuPN, int rowCount)
+        public void PasteCells(string quantity, string descrip, string manu, string manuPN, int rowCount, int startRow)
         {
             System.Threading.Thread.Sleep(2000);
-            ws.Cells[2 + rowCount, 2] = quantity;
-            ws.Cells[2 + rowCount, 5] = descrip;
-            ws.Cells[2 + rowCount, 6] = manu;
-            ws.Cells[2 + rowCount, 7] = manuPN;
+            ws.Cells[startRow + rowCount, 2] = quantity;
+            ws.Cells[startRow + rowCount, 5] = descrip;
+            ws.Cells[startRow + rowCount, 6] = manu;
+            ws.Cells[startRow + rowCount, 7] = manuPN;
         }
 
-        public void PasteSortedRefs(string sortedRefs, int refRowCount)
+        public void PasteSortedRefs(string sortedRefs, int refRowCount, int startRow)
         {
-            ws.Cells[2 + refRowCount, 3] = sortedRefs;
+            ws.Cells[startRow + refRowCount, 3] = sortedRefs;
         }
     }
    

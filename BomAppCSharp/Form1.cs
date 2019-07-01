@@ -23,6 +23,9 @@ namespace BomAppCSharp
         public List<int> IndexToDelete = new List<int>();
         public List<String> SortedList = new List<string>();
 
+        private bool LoadButtonClicked = false;
+        private bool SortButtonClicked = false;
+
         //open excel files
         Excel UnsortedExcelFile = null;
         Excel SortedExcelFile = null;
@@ -31,6 +34,7 @@ namespace BomAppCSharp
         int SortedsheetNum;
         public int rowCount = 0;
         public int refRowCount = 0;
+        public int rowTextCount = 0;
 
         public Form1()
         {
@@ -39,13 +43,14 @@ namespace BomAppCSharp
 
         public void LoadButton_Click(object sender, EventArgs e)
         {
+            LoadButtonClicked = true;
             IndexToDelete.Clear();
             RefStringList.Clear();
             SortedTextBox.Text = String.Empty;
             SortedTextBox.ScrollBars = ScrollBars.Vertical;
 
             //taking input from user and converting to variable
-            if (Cell1.Text != String.Empty && Cell2.Text != String.Empty)
+            if (Cell1.Text != String.Empty || Cell2.Text != String.Empty)
             {
                 if (IsAllLettersOrDigits(Cell1.Text) && IsAllLettersOrDigits(Cell2.Text) && FileInTextBox.Text != String.Empty)
                 {
@@ -66,6 +71,7 @@ namespace BomAppCSharp
 
         private void SortButton_Click(object sender, EventArgs e)
         {
+            SortButtonClicked = true;
             label8.Text = string.Empty;
             label9.Text = string.Empty;
             RowOf5Count.Text = string.Empty;
@@ -75,84 +81,35 @@ namespace BomAppCSharp
             SortedList.Clear();
             RefCompList.Clear();
 
-            //for loop to go through all elements in list
-            for (int i = 0; i < RefStringList.Count; i++)
+            if (LoadButtonClicked)
             {
-                //if contains "\r\n"
-                if (RefStringList[i].Contains("\r\n"))
-                {
-                    IndexToDelete.Add(i);
-                    RefStringList.AddRange(Split(RefStringList[i]));
-                }
+                SortReferences();
 
-                //else if contains "-"
-                else if (RefStringList[i].Contains("-"))
-                {
-                    IndexToDelete.Add(i);
-
-                    List<string> TempList = new List<string>();
-                    TempList.AddRange(Split(RefStringList[i]));
-
-                    RefStringList.AddRange(AddComponents(TempList));
-                }
-
-            }
-
-            //inverse the IndexToDelete list, then remove the bad indexes with a foreach loop
-            IndexToDelete.Reverse();
-
-            foreach (int x in IndexToDelete)
-            {
-                RefStringList.RemoveAt(x);
-            }
-
-            RefStringList = RefStringList.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
-
-            //using the list of strings, split the refs into separate parts and place in components list
-            for (int i = 0; i < RefStringList.Count; i++)
-            {
-                RefCompList.Add(CreateComponents(RefStringList[i]));
-            }
-            // sort refs by their components, first prefix then number
-            RefCompList = RefCompList.OrderBy(o => o.prefix).ThenBy(o => o.number).ToList();
-
-            foreach (RefComponents C in RefCompList)
-            {
-                SortedList.Add(Combine(C));
-            }
-
-            //print list to screen, separated by commas, 5 items per row
-            int rowCount = 0;
-
-            for (int j = 1; j <= SortedList.Count; j++)
-            {
-                if (j % 5 == 0)
-                {
-                    SortedTextBox.Text += SortedList[j - 1] + Environment.NewLine;
-                    rowCount++;
-                }
-                else
-                {
-                    SortedTextBox.Text += SortedList[j - 1] + ", ";   
-                }
+                //paste the references in the file
+                SortedExcelFile.PasteSortedRefs(SortedTextBox.Text.ToString(),
+                                                refRowCount,
+                                                Convert.ToInt32(numericUpDownRowStart.Value));
                 
+                //delete extra comma at the end
+                if (SortedTextBox.Text != string.Empty)
+                {
+                    SortedTextBox.Text = SortedTextBox.Text.Remove(SortedTextBox.Text.LastIndexOf(","));
+                }
+
+
+                label8.Text = "1    Row of ";
+                label9.Text = "Rows of 5";
+                RowOf5Count.Text = rowTextCount.ToString();
+                LastRowCount.Text += (SortedList.Count % 5).ToString();
+                TotalCountBox.Text = (SortedList.Count).ToString();
+
+                refRowCount++;
+                LoadButtonClicked = false;
             }
-
-            //delete extra comma at the end
-            SortedTextBox.Text = SortedTextBox.Text.TrimEnd(',');
-
-            //paste the references in the file
-            SortedExcelFile.PasteSortedRefs(SortedTextBox.Text.ToString(), refRowCount);
-            refRowCount++;
-
-
-            //save and close excel files
-
-            label8.Text = "1    Row of ";
-            label9.Text = "Rows of 5";
-            RowOf5Count.Text = rowCount.ToString();
-            LastRowCount.Text += (SortedList.Count % 5).ToString();
-            TotalCountBox.Text = (SortedList.Count).ToString();
+            else
+            {
+                SortedTextBox.Text = "Please enter cells and load them in before sorting.";
+            }
         }
 
         private void ResetButton_Click(object sender, EventArgs e)
@@ -167,6 +124,14 @@ namespace BomAppCSharp
             label9.Text = string.Empty;
             RowOf5Count.Text = string.Empty;
             LastRowCount.Text = string.Empty;
+            QuantityTextBox.Text = string.Empty;
+            PartDescTextBox.Text = string.Empty;
+            ManufacturerTextBox.Text = string.Empty;
+            ManufacturerPNTextBox.Text = string.Empty;
+            FileInTextBox.Text = string.Empty;
+            FileOutTextBox.Text = string.Empty;
+            ofd.Reset();
+            ofd2.Reset();
 
         }
 
@@ -224,12 +189,15 @@ namespace BomAppCSharp
         {
             RefComponents TempComp = new RefComponents();
 
-            string numstr1 = Regex.Replace(str1, "[^0-9.]", string.Empty);
-            int num = int.Parse(numstr1);
-            string letter = Regex.Replace(str1, @"[\d-]", string.Empty);
+            if (str1 != string.Empty)
+            {
+                string numstr1 = Regex.Replace(str1, "[^0-9.]", string.Empty);
+                int num = int.Parse(numstr1);
+                string letter = Regex.Replace(str1, @"[\d-]", string.Empty);
 
-            TempComp.prefix = letter;
-            TempComp.number = num;
+                TempComp.prefix = letter;
+                TempComp.number = num;
+            }
 
             return TempComp;
 
@@ -242,7 +210,12 @@ namespace BomAppCSharp
         }
         public bool IsAllLettersOrDigits(string Str)
         {
-            return Regex.IsMatch(Str, @"\S*(\S*([a-zA-Z]\S*[0-9])|([0-9]\S*[a-zA-Z]))\S*");
+            if (Regex.IsMatch(Str, @"\S*(\S*([a-zA-Z]\S*[0-9])|([0-9]\S*[a-zA-Z]))\S*") || Str == string.Empty)
+            {
+                return true;
+            }
+            else
+                return false;
         }
         public int CharToInt(char letter)
         {
@@ -252,10 +225,9 @@ namespace BomAppCSharp
         private void ExportDataToExcel()
         {
 
-            String firstCellStr = Cell1.Text.ToString();
-            String secondCellStr = Cell2.Text.ToString();
+            string firstCellStr = Cell1.Text.ToString();
+            string secondCellStr = Cell2.Text.ToString();
 
-            // your export process is here...
             //creating strings for the users column inputs
             string QuantityCol = QuantityTextBox.Text.ToString();
             string PartDescriptionCol = PartDescTextBox.Text.ToString();
@@ -267,7 +239,16 @@ namespace BomAppCSharp
             RefComponents cell2Comps = CreateComponents(secondCellStr);
 
             //reading the excel range into a list of strings
-            RefStringList = UnsortedExcelFile.ReadExcelRange(cell1Comps.prefix[0], cell1Comps.number, cell2Comps.prefix[0], cell2Comps.number);
+            if (firstCellStr != null && secondCellStr == null)
+            {
+                RefStringList.Add(UnsortedExcelFile.ReadCell(cell1Comps.prefix[0], cell1Comps.number));
+            }
+            else if (firstCellStr != null && secondCellStr != null)
+            {
+                RefStringList = UnsortedExcelFile.ReadExcelRange(cell1Comps.prefix[0], cell1Comps.number, cell2Comps.prefix[0], cell2Comps.number);
+            }
+            else
+                SortedTextBox.Text = "Error, Invalid Entry";
 
             //remove extra empty slots in list
             RefStringList = RefStringList.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
@@ -305,7 +286,7 @@ namespace BomAppCSharp
                 ManufacturerPNCell = string.Empty;
 
             //print the copied contents into the new excel file in the correct columns
-            SortedExcelFile.PasteCells(QuantityCell, PartDescriptionCell, ManufacturerCell, ManufacturerPNCell, rowCount);
+            SortedExcelFile.PasteCells(QuantityCell, PartDescriptionCell, ManufacturerCell, ManufacturerPNCell, rowCount, Convert.ToInt32(numericUpDownRowStart.Value));
             rowCount++;
 
         }
@@ -332,12 +313,97 @@ namespace BomAppCSharp
 
             KillExcel();
 
-            Thread.Sleep(3000);
+            Thread.Sleep(2000);
             if (File.Exists(ofd2.FileName))
             {
                 File.Delete(ofd2.FileName);
                 File.Move(@"Z:\Example Bom\TempExcel.xlsx", ofd2.FileName);
             }
+        }
+
+        private void SortReferences()
+        {
+            //for loop to go through all elements in list
+            for (int i = 0; i < RefStringList.Count; i++)
+            {
+                //if contains "\r\n"
+                if (RefStringList[i].Contains("\r\n"))
+                {
+                    IndexToDelete.Add(i);
+                    RefStringList.AddRange(Split(RefStringList[i]));
+                }
+
+                //else if contains "-"
+                else if (RefStringList[i].Contains("-"))
+                {
+                    IndexToDelete.Add(i);
+
+                    List<string> TempList = new List<string>();
+                    TempList.AddRange(Split(RefStringList[i]));
+
+                    RefStringList.AddRange(AddComponents(TempList));
+                }
+
+            }
+
+            //inverse the IndexToDelete list, then remove the bad indexes with a foreach loop
+            IndexToDelete.Reverse();
+
+            foreach (int x in IndexToDelete)
+            {
+                RefStringList.RemoveAt(x);
+            }
+
+            RefStringList = RefStringList.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
+
+            //using the list of strings, split the refs into separate parts and place in components list
+            for (int i = 0; i < RefStringList.Count; i++)
+            {
+                RefCompList.Add(CreateComponents(RefStringList[i]));
+            }
+            // sort refs by their components, first prefix then number
+            RefCompList = RefCompList.OrderBy(o => o.prefix).ThenBy(o => o.number).ToList();
+
+            foreach (RefComponents C in RefCompList)
+            {
+                SortedList.Add(Combine(C));
+            }
+
+            //print list to screen, separated by commas, 5 items per row
+
+            for (int j = 1; j <= SortedList.Count; j++)
+            {
+                if (j % 5 == 0)
+                {
+                    SortedTextBox.Text += SortedList[j - 1] + Environment.NewLine;
+                    rowTextCount++;
+                }
+                else
+                {
+                    SortedTextBox.Text += SortedList[j - 1] + ", ";
+                }
+
+            }
+        }
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            if (SortButtonClicked)
+                SaveSortedFile();
+
+            else
+                SortedTextBox.Text = "Please Load a set of references, then sort them before saving the file.";
+
+        }
+
+        private void SelectExcelButton_Click(object sender, EventArgs e)
+        {
+            UnsortedsheetNum = Convert.ToInt32(numericUpDown1.Value);
+            SortedsheetNum = Convert.ToInt32(numericUpDown2.Value);
+
+            //open excel files
+            UnsortedExcelFile = new Excel(ofd.FileName, UnsortedsheetNum);
+            SortedExcelFile = new Excel(ofd2.FileName, SortedsheetNum);
         }
 
         private void OpenFileDialog1_FileOk_1(object sender, CancelEventArgs e)
@@ -373,21 +439,6 @@ namespace BomAppCSharp
         private void FileInTextBox_TextChanged(object sender, EventArgs e)
         {
 
-        }
-
-        private void SaveButton_Click(object sender, EventArgs e)
-        {
-            SaveSortedFile();
-        }
-
-        private void SelectExcelButton_Click(object sender, EventArgs e)
-        {
-            UnsortedsheetNum = Convert.ToInt32(numericUpDown1.Value);
-            SortedsheetNum = Convert.ToInt32(numericUpDown2.Value);
-
-            //open excel files
-            UnsortedExcelFile = new Excel(ofd.FileName, UnsortedsheetNum);
-            SortedExcelFile = new Excel(ofd2.FileName, SortedsheetNum);
         }
     }
     public class RefComponents
