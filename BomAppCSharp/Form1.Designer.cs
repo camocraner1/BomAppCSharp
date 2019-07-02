@@ -182,25 +182,25 @@
             // 
             // Cell1
             // 
-            this.Cell1.Location = new System.Drawing.Point(398, 351);
+            this.Cell1.Location = new System.Drawing.Point(398, 350);
             this.Cell1.Name = "Cell1";
-            this.Cell1.Size = new System.Drawing.Size(28, 20);
+            this.Cell1.Size = new System.Drawing.Size(37, 20);
             this.Cell1.TabIndex = 12;
             // 
             // Cell2
             // 
-            this.Cell2.Location = new System.Drawing.Point(452, 351);
+            this.Cell2.Location = new System.Drawing.Point(459, 350);
             this.Cell2.Name = "Cell2";
-            this.Cell2.Size = new System.Drawing.Size(28, 20);
+            this.Cell2.Size = new System.Drawing.Size(36, 20);
             this.Cell2.TabIndex = 13;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(432, 351);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(437, 345);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(14, 20);
+            this.label4.Size = new System.Drawing.Size(16, 24);
             this.label4.TabIndex = 14;
             this.label4.Text = "-";
             // 
@@ -509,7 +509,7 @@
             // 
             this.numericUpDownRowStart.Location = new System.Drawing.Point(150, 402);
             this.numericUpDownRowStart.Maximum = new decimal(new int[] {
-            9,
+            500,
             0,
             0,
             0});
@@ -519,7 +519,7 @@
             0,
             0});
             this.numericUpDownRowStart.Name = "numericUpDownRowStart";
-            this.numericUpDownRowStart.Size = new System.Drawing.Size(29, 20);
+            this.numericUpDownRowStart.Size = new System.Drawing.Size(39, 20);
             this.numericUpDownRowStart.TabIndex = 42;
             this.numericUpDownRowStart.Value = new decimal(new int[] {
             2,
@@ -576,6 +576,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Bom Sort";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing_1);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
