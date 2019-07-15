@@ -217,7 +217,7 @@
             // FileInTextBox
             // 
             this.FileInTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FileInTextBox.Location = new System.Drawing.Point(12, 225);
+            this.FileInTextBox.Location = new System.Drawing.Point(13, 27);
             this.FileInTextBox.Name = "FileInTextBox";
             this.FileInTextBox.Size = new System.Drawing.Size(135, 22);
             this.FileInTextBox.TabIndex = 16;
@@ -227,7 +227,7 @@
             // 
             this.BrowseButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.BrowseButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BrowseButton.Location = new System.Drawing.Point(153, 225);
+            this.BrowseButton.Location = new System.Drawing.Point(154, 27);
             this.BrowseButton.Name = "BrowseButton";
             this.BrowseButton.Size = new System.Drawing.Size(63, 22);
             this.BrowseButton.TabIndex = 17;
@@ -244,7 +244,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(9, 209);
+            this.label6.Location = new System.Drawing.Point(10, 11);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(72, 13);
             this.label6.TabIndex = 18;
@@ -254,7 +254,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(10, 250);
+            this.label7.Location = new System.Drawing.Point(11, 52);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(97, 16);
             this.label7.TabIndex = 19;
@@ -262,7 +262,7 @@
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(104, 250);
+            this.numericUpDown1.Location = new System.Drawing.Point(105, 52);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             9,
             0,
@@ -312,7 +312,7 @@
             // 
             // numericUpDown2
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(104, 328);
+            this.numericUpDown2.Location = new System.Drawing.Point(105, 130);
             this.numericUpDown2.Maximum = new decimal(new int[] {
             9,
             0,
@@ -336,7 +336,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(10, 328);
+            this.label10.Location = new System.Drawing.Point(11, 130);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(97, 16);
             this.label10.TabIndex = 27;
@@ -346,7 +346,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(9, 287);
+            this.label11.Location = new System.Drawing.Point(10, 89);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(23, 13);
             this.label11.TabIndex = 26;
@@ -356,7 +356,7 @@
             // 
             this.BrowseButton2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.BrowseButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BrowseButton2.Location = new System.Drawing.Point(153, 303);
+            this.BrowseButton2.Location = new System.Drawing.Point(154, 105);
             this.BrowseButton2.Name = "BrowseButton2";
             this.BrowseButton2.Size = new System.Drawing.Size(63, 22);
             this.BrowseButton2.TabIndex = 25;
@@ -367,7 +367,7 @@
             // FileOutTextBox
             // 
             this.FileOutTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FileOutTextBox.Location = new System.Drawing.Point(12, 303);
+            this.FileOutTextBox.Location = new System.Drawing.Point(13, 105);
             this.FileOutTextBox.Name = "FileOutTextBox";
             this.FileOutTextBox.Size = new System.Drawing.Size(135, 22);
             this.FileOutTextBox.TabIndex = 24;
@@ -379,7 +379,7 @@
             // QuantityTextBox
             // 
             this.QuantityTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.QuantityTextBox.Location = new System.Drawing.Point(77, 50);
+            this.QuantityTextBox.Location = new System.Drawing.Point(86, 316);
             this.QuantityTextBox.Name = "QuantityTextBox";
             this.QuantityTextBox.Size = new System.Drawing.Size(37, 26);
             this.QuantityTextBox.TabIndex = 30;
@@ -388,7 +388,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(12, 56);
+            this.label12.Location = new System.Drawing.Point(21, 322);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(56, 16);
             this.label12.TabIndex = 29;
@@ -399,7 +399,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(4, 28);
+            this.label13.Location = new System.Drawing.Point(13, 294);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(148, 16);
             this.label13.TabIndex = 31;
@@ -408,7 +408,7 @@
             // PartDescTextBox
             // 
             this.PartDescTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PartDescTextBox.Location = new System.Drawing.Point(121, 84);
+            this.PartDescTextBox.Location = new System.Drawing.Point(130, 350);
             this.PartDescTextBox.Name = "PartDescTextBox";
             this.PartDescTextBox.Size = new System.Drawing.Size(37, 26);
             this.PartDescTextBox.TabIndex = 33;
@@ -417,7 +417,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(12, 90);
+            this.label14.Location = new System.Drawing.Point(21, 356);
             this.label14.Name = "label14";
             this.label14.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label14.Size = new System.Drawing.Size(103, 16);
@@ -427,7 +427,7 @@
             // ManufacturerTextBox
             // 
             this.ManufacturerTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ManufacturerTextBox.Location = new System.Drawing.Point(98, 119);
+            this.ManufacturerTextBox.Location = new System.Drawing.Point(107, 385);
             this.ManufacturerTextBox.Name = "ManufacturerTextBox";
             this.ManufacturerTextBox.Size = new System.Drawing.Size(37, 26);
             this.ManufacturerTextBox.TabIndex = 35;
@@ -436,7 +436,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(12, 125);
+            this.label15.Location = new System.Drawing.Point(21, 391);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(85, 16);
             this.label15.TabIndex = 34;
@@ -445,7 +445,7 @@
             // ManufacturerPNTextBox
             // 
             this.ManufacturerPNTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ManufacturerPNTextBox.Location = new System.Drawing.Point(121, 162);
+            this.ManufacturerPNTextBox.Location = new System.Drawing.Point(130, 428);
             this.ManufacturerPNTextBox.Name = "ManufacturerPNTextBox";
             this.ManufacturerPNTextBox.Size = new System.Drawing.Size(37, 26);
             this.ManufacturerPNTextBox.TabIndex = 37;
@@ -455,7 +455,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(11, 168);
+            this.label16.Location = new System.Drawing.Point(20, 434);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(107, 16);
             this.label16.TabIndex = 36;
@@ -466,7 +466,7 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(10, 9);
+            this.label17.Location = new System.Drawing.Point(19, 275);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(116, 12);
             this.label17.TabIndex = 38;
@@ -487,7 +487,7 @@
             // 
             this.SelectExcelButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.SelectExcelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SelectExcelButton.Location = new System.Drawing.Point(24, 354);
+            this.SelectExcelButton.Location = new System.Drawing.Point(25, 156);
             this.SelectExcelButton.Name = "SelectExcelButton";
             this.SelectExcelButton.Size = new System.Drawing.Size(134, 38);
             this.SelectExcelButton.TabIndex = 40;
@@ -499,7 +499,7 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(12, 403);
+            this.label18.Location = new System.Drawing.Point(13, 205);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(132, 16);
             this.label18.TabIndex = 41;
@@ -507,7 +507,7 @@
             // 
             // numericUpDownRowStart
             // 
-            this.numericUpDownRowStart.Location = new System.Drawing.Point(150, 402);
+            this.numericUpDownRowStart.Location = new System.Drawing.Point(151, 204);
             this.numericUpDownRowStart.Maximum = new decimal(new int[] {
             500,
             0,

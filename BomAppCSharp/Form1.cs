@@ -224,11 +224,6 @@ namespace BomAppCSharp
             else
                 return false;
         }
-        public int CharToInt(char letter)
-        {
-            return (letter - 64);
-        }
-
         private void ExportDataToExcel()
         {
 
@@ -323,7 +318,9 @@ namespace BomAppCSharp
 
         private void SaveSortedFile()
         {
-            SortedExcelFile.SaveAs(@"Z:\Example Bom\TempExcel.xlsx");
+            string TempFilePath = Path.GetDirectoryName(ofd2.FileName) + @"\TEMPEXCEL.xlsx";
+
+            SortedExcelFile.SaveAs(TempFilePath);
             SortedExcelFile.Close();
             SortedExcelFile.Quit();
             UnsortedExcelFile.Close();
@@ -335,7 +332,7 @@ namespace BomAppCSharp
             if (File.Exists(ofd2.FileName))
             {
                 File.Delete(ofd2.FileName);
-                File.Move(@"Z:\Example Bom\TempExcel.xlsx", ofd2.FileName);
+                File.Move(TempFilePath, ofd2.FileName);
             }
         }
 
@@ -467,6 +464,10 @@ namespace BomAppCSharp
                     e.Cancel = true;
                 }
                 popup.Dispose();
+            }
+            else
+            {
+               KillExcel();
             }
         }
         public static bool IsOpened(string FileName)

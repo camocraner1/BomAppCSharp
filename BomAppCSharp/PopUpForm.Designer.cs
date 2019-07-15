@@ -59,11 +59,12 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft New Tai Lue", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(36, 18);
+            this.label1.Location = new System.Drawing.Point(38, 21);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(218, 40);
+            this.label1.Size = new System.Drawing.Size(218, 60);
             this.label1.TabIndex = 2;
-            this.label1.Text = "You are attempting to close the\r\n application without saving.";
+            this.label1.Text = "You are attempting to close the\r\n application without saving\r\n the spreadsheet.";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // button3
             // 
